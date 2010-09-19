@@ -5,9 +5,12 @@ if (typeof error_conf == 'undefined') {
 }
 
 window.onerror = function(m, f, l) {
-    var r = new RegExp(error_conf.filter, 'i');
-    if (f.match(r) == null) {
-        return false;
+    if (error_conf.filter) {
+        var r = new RegExp(error_conf.filter, 'i');
+        if (f.match(r) == null) {
+            alert('no filter match');
+            return false;
+        }
     }
 
     var stack = printStackTrace();
