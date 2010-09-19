@@ -5,6 +5,12 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>Errors</title>
+	<script type="text/javascript" charset="utf-8">
+	  error_conf = {
+	    filter: 'localhost'
+    };
+	</script>
+	<script src="error.js" type="text/javascript" charset="utf-8"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" src="/js/socket.io/socket.io.js"></script>
 	<script type="text/javascript">
@@ -26,6 +32,9 @@
 </head>
 <body>
   <h1>Errors</h1>
+  <p>
+    <a href="javascript:;" onclick="foo();">Error!</a>
+  </p>
   <ul id="errors"></ul>
 </body>
 </html>
