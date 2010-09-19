@@ -5,6 +5,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>Errors</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" src="/js/socket.io/socket.io.js"></script>
 	<script type="text/javascript">
     	var socket = new io.Socket(window.location.hostname, {
@@ -15,13 +16,17 @@
         // handle incoming commands
         socket.on('message', function(response) {
           console.log('IN: ' + response);
-          response = JSON.parse(response);
-          console.log(response);
+          var json = JSON.parse(response);
+          
+          $('#errors').append($('<li/>', {
+            text: response
+          }));
         });
 	</script>
 </head>
 <body>
-  index.html!
+  <h1>Errors</h1>
+  <ul id="errors"></ul>
 </body>
 </html>
 
