@@ -1,0 +1,35 @@
+body, th, td, p, div {
+  font-family: arial, sans-serif;
+}
+
+table.errors {
+  width: 100%;
+}
+
+table.errors th {
+  text-align: left;
+}
+
+table.errors td {
+  vertical-align: top;
+  background-color: #FFC9C9;
+  font-size: 12px;
+  padding: 5px;
+  margin: 1px;
+  border-bottom: 1px solid white;
+}
+
+p.message {
+  margin: 0;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+p.trace {
+  font-family: monospace;
+  font-size: 11px;
+}
+
+p.count {
+  font-size: 15px;
+}

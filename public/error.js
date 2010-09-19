@@ -12,11 +12,9 @@ window.onerror = function(m, f, l) {
             return false;
         }
     }
-
     var stack = printStackTrace();
     stack = stack.slice(2, stack.length);
     stack = stack.join('\n');
-
     var i = new Image();
     i.src = "/track?m="+escape(m)
             +"&f="+escape(f)

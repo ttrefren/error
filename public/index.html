@@ -5,7 +5,8 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>Errors</title>
-	<script type="text/javascript" charset="utf-8">
+	<link rel="stylesheet" href="/css/default.css" type="text/css" charset="utf-8">
+	<script type="text/javascript" charset="51">
 	  error_conf = {
 	    filter: 'localhost'
     };
@@ -23,19 +24,56 @@
         socket.on('message', function(response) {
           console.log('IN: ' + response);
           var json = JSON.parse(response);
+          json['id'] = 'asidjalisdjaisjd';
           
-          $('#errors').append($('<li/>', {
-            text: response
-          }));
+          if ($('#error_'+json['id']).length) {
+            var count = $('#error_'+json['id']+' .count');
+            count.html(+ count.html() + 1);
+          } else {
+            var row = $('<tr/>', {
+                id: "error_" + json['id'],
+              })
+              .append($('<td/>')
+                .append($('<p/>', {
+                  "class": "message",
+                  text: json['m'],
+                }))
+                .append($('<p/>', {
+                  "class": "file",
+                  text: json['f'] + ', line ' + json['l']
+                }))
+              )
+              .append($('<td/>')
+                .append($('<p/>', {
+                  "class": "trace",
+                  html: json['s'].replace(/\n/g, "<br>")
+                }))
+              )
+              .append($('<td/>')
+                .append($('<p/>', {
+                  "class": "count",
+                  html: '1'
+                }))
+              );
+            $('#errors > tbody').prepend(row);
+          }
         });
+	</script>
+	<script type="text/javascript" charset="utf-8">
+    function generate_error() {
+      bad_func();
+    }
 	</script>
 </head>
 <body>
   <h1>Errors</h1>
   <p>
-    <a href="javascript:;" onclick="foo();">Error!</a>
+    <a href="javascript:;" onclick="generate_error();">Error!</a>
   </p>
-  <ul id="errors"></ul>
+  <table cellspacing="0" id="errors" class="errors">
+    <tbody>
+      </tbody>
+  </table>
 </body>
 </html>
 
