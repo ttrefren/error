@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Errors</title>
+	<script type="text/javascript" src="/public/js/socket.io.js"></script>
+</head>
+<body>
+	<script type="text/javascript">
+    	var socket = new io.Socket(window.location.hostname, {
+          transports: ['websocket', 'xhr-multipart', 'xhr-polling']
+        });
+        socket.connect();
+
+        // handle incoming commands
+        socket.on('message', function(response) {
+          console.log('IN: ' + response);
+          response = JSON.parse(response);
+          console.log(response);
+          if (response.command) {
+            commands = [response];
+          } else {
+            commands = response.commands;
+          }
+
+          for (var i in commands) {
+            var c = commands[i];
+            var method = 'handle' + String(c.command).replace(/\//g, '_');
+            // console.debug('Command: '+method+', data =', c.data);
+            eval(method + '(c.data);');
+          }
+
+          // trigger response callback once we're done processing
+          if (response.request_id && response.request_id in this.requestsById) {
+            this.requestsById[response.request_id](response);
+            delete this.requestsById[response.request_id];
+          }
+        });
+	</script>
+</body>
+</html>
+
+
